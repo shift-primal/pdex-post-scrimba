@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+.app-container {
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 94%;
+    --foreground: 0 0% 11%;
+    --card: 0 0% 100%;
+    --medium: 0 0% 40%;
+    --light: 0 0% 88%;
+  }
+
+  #root {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+  }
+
+  html {
+    @apply scroll-smooth;
+    @apply box-border;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+  }
+
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  form > *,
+  button {
+    transition: all 200ms ease-in-out;
+  }
+}
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-medium: hsl(var(--medium));
+  --color-light: hsl(var(--light));
+}
