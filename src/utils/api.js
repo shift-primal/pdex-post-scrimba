@@ -1,21 +1,47 @@
-export default function fetchPokemon(pokemonToFetch, setIsLoading, setPokemon) {
-  const url = `https://pokeapi.co/api/v2/pokemon/${pokemonToFetch}`;
+export default async function fetchPokemon(
+  pokemonToFetch,
+  setShowContent,
+  setPokemon,
+  setSpecies
+) {
+  setShowContent(false);
 
-  setIsLoading(true);
+  const urlPokemon = `https://pokeapi.co/api/v2/pokemon/${pokemonToFetch}`;
+  const urlSpecies = `https://pokeapi.co/api/v2/pokemon-species/${pokemonToFetch}`;
+
   console.log(`Loading...`);
 
-  fetch(url)
-    .then((res) => res.json())
-    .then((json) => {
-      setPokemon(json);
-      console.log("Loading completed!", json);
-      return new Promise((resolve) => setTimeout(() => resolve(json), 1000));
-    })
-    .then(() => {
-      setIsLoading(false);
-    })
-    .catch((err) => {
-      console.error("Error fetching Pokemon:", err);
-      setIsLoading(false);
-    });
+  try {
+    // Fetch both simultaneously
+    const [pokemonResponse, speciesResponse] = await Promise.all([
+      fetch(urlPokemon),
+      fetch(urlSpecies),
+    ]);
+
+    const [pokemonData, speciesData] = await Promise.all([
+      pokemonResponse.json(),
+      speciesResponse.json(),
+    ]);
+
+    const imageUrl =
+      pokemonData.sprites?.other?.["official-artwork"]?.front_default;
+
+    if (imageUrl) {
+      await new Promise((resolve) => {
+        const img = new Image();
+        img.onload = resolve;
+        img.onerror = resolve;
+        img.src = imageUrl;
+      });
+    }
+
+    setPokemon(pokemonData);
+    setSpecies(speciesData);
+
+    await new Promise((resolve) => setTimeout(resolve, 500)); // 500ms delay
+  } catch (err) {
+    console.error("Error fetching Pokemon data:", err);
+  } finally {
+    setShowContent(true);
+  }
 }
