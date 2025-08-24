@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { capitalize, formatFlavorText, formatHeight, formatWeight } from "../utils/format";
 import { Ruler, Stars, Weight } from "lucide-react";
+import ProgressBar from "./ProgressBar";
 
 export default function Card({ pokemon }) {
 	const biometrics = [
@@ -74,13 +75,17 @@ export default function Card({ pokemon }) {
 				>
 					Base Stats
 				</h1>
-				<div className="grid grid-cols-3 place-items-center max-w-40">
+				<div className="grid grid-cols-9 grid-rows-6 place-items-center">
 					{Object.values(pokemon.stats).map((stat) => {
 						return (
 							<Fragment key={stat.name}>
-								<span className="w-full text-right font-bold">{stat.name}</span>
+								<span className="w-full text-right font-bold col-start-1">{stat.name}</span>
 								<span className="border-l-2 opacity-20 h-full"></span>
 								<span className="w-full text-left font-semibold">{`0${stat.value}`}</span>
+								<ProgressBar
+									value={stat.value}
+									className="w-full"
+								/>
 							</Fragment>
 						);
 					})}
