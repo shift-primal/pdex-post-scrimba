@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ThumbnailCard from "./ThumbnailCard";
 
-export default function Menu({ setPokemonToFetch }) {
+export default function Menu({ setPokemonToFetch, setMenuOpen }) {
 	// useStates
 
 	const [onLoadData, setOnLoadData] = useState([]);
@@ -21,12 +21,14 @@ export default function Menu({ setPokemonToFetch }) {
 			});
 	}, []);
 
-	const cardElements = onLoadData.map((i) => {
+	const cardElements = onLoadData.map((pokemon, i) => {
 		return (
 			<ThumbnailCard
-				name={i.name}
-				key={i.name}
-				handleClick={setPokemonToFetch}
+				name={pokemon.name}
+				id={i + 1}
+				key={i}
+				setPokemonToFetch={setPokemonToFetch}
+				setMenuOpen={setMenuOpen}
 			/>
 		);
 	});
@@ -34,7 +36,7 @@ export default function Menu({ setPokemonToFetch }) {
 	return (
 		<div
 			id="menu"
-			className="grid grid-cols-3 gap-4"
+			className="grid grid-cols-2 gap-4 w-full p-4"
 		>
 			{cardElements}
 		</div>

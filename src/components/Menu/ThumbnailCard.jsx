@@ -1,14 +1,21 @@
-import { capitalize } from "../../utils/format";
+import { capitalize, formatId } from "../../utils/format";
 
-export default function ThumbnailCard({ name, handleClick }) {
+export default function ThumbnailCard({ name, id, setPokemonToFetch, setMenuOpen }) {
 	return (
 		<button
 			onClick={() => {
-				handleClick(name);
+				setPokemonToFetch(name);
+				setMenuOpen(false);
 			}}
-			className="w-40 h-40 bg-white rounded-2xl flex items-center justify-center cursor-pointer"
+			className="bg-white rounded-lg h-20 flex flex-col items-center justify-center cursor-pointer"
 		>
-			<h3>{capitalize(name)}</h3>
+			<h3
+				id="id"
+				className="text-2xl"
+			>
+				#{formatId(id)}
+			</h3>
+			<h4 id="name">{capitalize(name)}</h4>
 		</button>
 	);
 }

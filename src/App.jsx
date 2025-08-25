@@ -49,7 +49,10 @@ function App() {
 							)}
 							{menuOpen && (
 								<>
-									<Menu setPokemonToFetch={setPokemonToFetch} />
+									<Menu
+										setPokemonToFetch={setPokemonToFetch}
+										setMenuOpen={setMenuOpen}
+									/>
 								</>
 							)}
 						</div>
