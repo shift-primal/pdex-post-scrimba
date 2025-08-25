@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { capitalize, formatFlavorText, formatHeight, formatWeight } from "../utils/format";
 import { Ruler, Stars, Weight } from "lucide-react";
-import ProgressBar from "./ProgressBar";
+import StatMeter from "./StatMeter";
 
 export default function Card({ pokemon }) {
 	const biometrics = [
@@ -61,13 +61,13 @@ export default function Card({ pokemon }) {
 			</div>
 			<div
 				id="flavor-text"
-				className="px-16 leading-8 text-lg font-medium"
+				className="px-16 leading-8 text-lg font-medium line-clamp-2"
 			>
 				{formatFlavorText(pokemon.flavorText)}
 			</div>
 			<div
 				id="stats"
-				className="px-8"
+				className="px-8 flex flex-col gap-y-4"
 			>
 				<h1
 					className="text-2xl font-bold"
@@ -82,7 +82,8 @@ export default function Card({ pokemon }) {
 								<span className="w-full text-right font-bold col-start-1">{stat.name}</span>
 								<span className="border-l-2 opacity-20 h-full"></span>
 								<span className="w-full text-left font-semibold">{`0${stat.value}`}</span>
-								<ProgressBar
+								<StatMeter
+									pokemon={pokemon}
 									value={stat.value}
 									className="w-full"
 								/>
