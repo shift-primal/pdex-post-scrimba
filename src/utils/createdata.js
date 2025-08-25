@@ -1,8 +1,8 @@
 import { typeColors } from "./colors.js";
 import { findEnglishEntry } from "./format.js";
-import fetchPokemon from "./api.js";
+import { fetchPokemon } from "./api.js";
 
-export default async function createPokemon(pokemonToFetch) {
+export async function createPokemon(pokemonToFetch) {
 	const rawPokemon = await fetchPokemon(pokemonToFetch);
 
 	const pokemon = {

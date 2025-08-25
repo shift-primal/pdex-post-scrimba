@@ -1,11 +1,11 @@
 import { ArrowLeft } from "lucide-react";
-import { capitalize, formatId } from "../utils/format";
+import { capitalize, formatId } from "../../utils/format";
 
 export default function Title({ pokemon }) {
 	return (
 		<section
 			id="title"
-			className="h-20 flex items-center justify-around w-full my-4 text-white"
+			className="h-20 flex items-center justify-between w-full my-4 text-white px-8"
 		>
 			<button>
 				<ArrowLeft size={32} />

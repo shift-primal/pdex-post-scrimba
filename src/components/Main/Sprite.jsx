@@ -8,7 +8,6 @@ export default function Image({ pokemon }) {
 				className="object-contain object-center absolute"
 				src={pokemon.sprite}
 				alt="Image loading failed"
-				onLoad={console.log("Loaded!")}
 			/>
 		</section>
 	);

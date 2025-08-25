@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { Loading, Title, Image, Card, Controls } from "./components";
-import createPokemon from "./utils/buildPokemon";
+import { Loading, HeadTitle, Sprite, InfoCard, DevTools, MobileControls, Menu } from "@components";
+import { createPokemon } from "@utils/createdata";
 
 function App() {
 	// useStates
 
 	const [currentPokemon, setCurrentPokemon] = useState([]);
-	const [prevPokemon, setPrevPokemon] = useState([]);
+	const [menuOpen, setMenuOpen] = useState(false);
+	// const [prevPokemon, setPrevPokemon] = useState([]);
 	const [pokemonToFetch, setPokemonToFetch] = useState(1);
 	const [showContent, setShowContent] = useState(false);
 
@@ -19,6 +20,8 @@ function App() {
 		});
 	}, [pokemonToFetch]);
 
+	// ->
+
 	return (
 		<>
 			<main className="min-h-screen place-content-center bg-gray-950 transition-all">
@@ -27,18 +30,36 @@ function App() {
 					<>
 						<div
 							className="app-container flex flex-col items-center relative p-4 outline-4 outline-white"
-							style={{ backgroundColor: currentPokemon.colors[currentPokemon.types.first] }}
+							style={{
+								backgroundColor: currentPokemon.colors[currentPokemon.types.first],
+								overflowY: menuOpen ? "scroll" : "hidden",
+							}}
 						>
-							<Title pokemon={currentPokemon} />
-							<Image pokemon={currentPokemon} />
-							<Card pokemon={currentPokemon} />
+							{!menuOpen && (
+								<>
+									<MobileControls
+										pokemon={currentPokemon}
+										showContent={showContent}
+										setPokemonToFetch={setPokemonToFetch}
+									/>
+									<HeadTitle pokemon={currentPokemon} />
+									<Sprite pokemon={currentPokemon} />
+									<InfoCard pokemon={currentPokemon} />
+								</>
+							)}
+							{menuOpen && (
+								<>
+									<Menu setPokemonToFetch={setPokemonToFetch} />
+								</>
+							)}
 						</div>
 					</>
 				)}
-				<Controls
+				<DevTools
 					pokemon={currentPokemon}
-					setPokemonToFetch={setPokemonToFetch}
 					showContent={showContent}
+					setPokemonToFetch={setPokemonToFetch}
+					setMenuOpen={setMenuOpen}
 				/>
 			</main>
 		</>

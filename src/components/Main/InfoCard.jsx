@@ -1,7 +1,7 @@
 import { Fragment } from "react";
-import { capitalize, formatFlavorText, formatHeight, formatWeight } from "../utils/format";
+import { capitalize, formatFlavorText, formatHeight, formatWeight } from "../../utils/format";
 import { Ruler, Stars, Weight } from "lucide-react";
-import StatMeter from "./StatMeter";
+import StatMeter from "../UI/StatMeter";
 
 export default function Card({ pokemon }) {
 	const biometrics = [
@@ -12,7 +12,7 @@ export default function Card({ pokemon }) {
 	return (
 		<section
 			id="card"
-			className="w-full h-[725px] bg-white rounded-2xl text-foreground pt-30 flex flex-col gap-y-8"
+			className="w-full h-[725px] bg-white rounded-2xl text-foreground pt-30 flex flex-col gap-y-6"
 		>
 			<div
 				id="types"
@@ -75,7 +75,7 @@ export default function Card({ pokemon }) {
 				>
 					Base Stats
 				</h1>
-				<div className="grid grid-cols-9 grid-rows-6 place-items-center">
+				<div className="grid grid-cols-9 grid-rows-6 place-items-center mt-2">
 					{Object.values(pokemon.stats).map((stat) => {
 						return (
 							<Fragment key={stat.name}>
