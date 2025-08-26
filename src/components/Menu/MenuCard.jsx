@@ -1,6 +1,6 @@
 import { capitalize, formatId } from "../../utils/format";
 
-export default function ThumbnailCard({ name, id, setPokemonToFetch, setMenuOpen }) {
+export default function MenuCard({ name, id, setPokemonToFetch, setMenuOpen }) {
 	return (
 		<button
 			onClick={() => {

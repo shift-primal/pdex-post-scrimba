@@ -7,6 +7,7 @@ function App() {
 
 	const [currentPokemon, setCurrentPokemon] = useState([]);
 	const [menuOpen, setMenuOpen] = useState(false);
+	const [onLoadData, setOnLoadData] = useState([]);
 	// const [prevPokemon, setPrevPokemon] = useState([]);
 	const [pokemonToFetch, setPokemonToFetch] = useState(1);
 	const [showContent, setShowContent] = useState(false);
@@ -20,6 +21,19 @@ function App() {
 		});
 	}, [pokemonToFetch]);
 
+	useEffect(() => {
+		const url = "https://pokeapi.co/api/v2/pokemon?limit=1025&offset=0";
+		fetch(url)
+			.then((res) => res.json())
+			.then((data) => {
+				console.log("Completed fetching onLoad data");
+				setOnLoadData(data.results);
+			})
+			.catch((err) => {
+				console.error("Error:", err);
+			});
+	}, []);
+
 	// ->
 
 	return (
@@ -29,10 +43,9 @@ function App() {
 				{(showContent || currentPokemon?.name) && (
 					<>
 						<div
-							className="app-container flex flex-col items-center relative p-4 outline-4 outline-white"
+							className="app-container flex flex-col items-center relative outline-4 p-4 outline-white"
 							style={{
 								backgroundColor: currentPokemon.colors[currentPokemon.types.first],
-								overflowY: menuOpen ? "scroll" : "hidden",
 							}}
 						>
 							{!menuOpen && (
@@ -50,8 +63,10 @@ function App() {
 							{menuOpen && (
 								<>
 									<Menu
+										onLoadData={onLoadData}
 										setPokemonToFetch={setPokemonToFetch}
 										setMenuOpen={setMenuOpen}
+										menuOpen={menuOpen}
 									/>
 								</>
 							)}

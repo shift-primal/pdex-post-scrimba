@@ -5,7 +5,7 @@ export { default as HeadTitle } from "./Main/HeadTitle.jsx";
 
 // Menu components
 export { default as Menu } from "./Menu/Menu.jsx";
-export { default as ThumbnailCard } from "./Menu/ThumbnailCard.jsx";
+export { default as MenuCard } from "./Menu/MenuCard.jsx";
 
 // UI components
 export { default as Loading } from "./UI/Loading.jsx";
