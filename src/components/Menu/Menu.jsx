@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import MenuCard from "./MenuCard";
-import MenuHeader from "./MenuHeader";
 import MenuSearch from "./MenuSearch";
 
 export default function Menu({ onLoadData, setPokemonToFetch, setMenuOpen, menuOpen }) {
@@ -10,12 +9,26 @@ export default function Menu({ onLoadData, setPokemonToFetch, setMenuOpen, menuO
 	const [displayBookmark, setDisplayBookmark] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
 
+	const [searchQuery, setSearchQuery] = useState("");
+
 	// Refs
 
 	const menuRef = useRef(null);
 	const isLoadingRef = useRef(false);
 
 	// useEffects
+
+	useEffect(() => {
+		if (searchQuery) {
+			const filteredPokemon = onLoadData
+				.filter((el) => el != null)
+				.filter((el) => el.name && el.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+			setDisplayedPokemon(filteredPokemon);
+		} else {
+			setDisplayedPokemon(onLoadData.slice(0, 50));
+		}
+	}, [searchQuery]);
 
 	useEffect(() => {
 		if (displayBookmark === 0) {
@@ -32,15 +45,11 @@ export default function Menu({ onLoadData, setPokemonToFetch, setMenuOpen, menuO
 				const scrollableArea = menuRef.current.scrollHeight - menuRef.current.clientHeight;
 				const remaining = scrollableArea - menuRef.current.scrollTop;
 
-				// console.log("Scroll event fired, isLoadingRef: ", isLoadingRef.current);
-				// console.log("Remaining pixels: ", remaining);
-
 				if (remaining > 500 && isLoadingRef.current) {
 					isLoadingRef.current = false;
 				}
 
 				if (remaining < 300 && !isLoadingRef.current) {
-					// console.log("Starting to load next pokemon.. - setting isLoadingRef to true");
 					isLoadingRef.current = true;
 					setDisplayBookmark((prev) => prev + 1);
 				}
@@ -56,12 +65,12 @@ export default function Menu({ onLoadData, setPokemonToFetch, setMenuOpen, menuO
 		}
 	}, [menuOpen]);
 
-	const cardElements = displayedPokemon.map((pokemon, i) => {
+	const cardElements = displayedPokemon.map((el) => {
 		return (
 			<MenuCard
-				name={pokemon.name}
-				id={i + 1}
-				key={i}
+				name={el.name}
+				id={el.url ? el.url.split("/").slice(-2, -1)[0] : index + 1}
+				key={el.name}
 				setPokemonToFetch={setPokemonToFetch}
 				setMenuOpen={setMenuOpen}
 			/>
@@ -71,18 +80,27 @@ export default function Menu({ onLoadData, setPokemonToFetch, setMenuOpen, menuO
 	return (
 		<div
 			id="menu"
-			className="w-full p-4 h-full overflow-y-hidden flex flex-col"
+			className="w-full h-full overflow-y-hidden flex flex-col"
 		>
-			<MenuHeader />
+			<div
+				id="header"
+				className="py-8"
+			>
+				<h1 className="text-3xl">Pokémon</h1>
+			</div>
+
 			<div
 				id="cards-grid"
-				className="grid grid-cols-2 gap-4 overflow-y-scroll flex-1"
+				className="grid grid-cols-2 place-content-start gap-4 overflow-y-scroll flex-1 px-4"
 				ref={menuRef}
 			>
 				{cardElements}
 			</div>
-			<div className="">
-				<MenuSearch />
+			<div
+				id="footer"
+				className="py-4"
+			>
+				<MenuSearch setSearchQuery={setSearchQuery} />
 			</div>
 		</div>
 	);

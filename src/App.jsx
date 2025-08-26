@@ -22,11 +22,12 @@ function App() {
 	}, [pokemonToFetch]);
 
 	useEffect(() => {
+		console.log("Fetching onLoadData...");
 		const url = "https://pokeapi.co/api/v2/pokemon?limit=1025&offset=0";
 		fetch(url)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log("Completed fetching onLoad data");
+				console.log("Completed fetching onLoad data!");
 				setOnLoadData(data.results);
 			})
 			.catch((err) => {
@@ -34,7 +35,7 @@ function App() {
 			});
 	}, []);
 
-	// ->
+	//
 
 	return (
 		<>

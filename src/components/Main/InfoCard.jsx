@@ -12,7 +12,7 @@ export default function Card({ pokemon }) {
 	return (
 		<section
 			id="card"
-			className="w-full h-[725px] bg-white rounded-2xl text-foreground pt-30 flex flex-col gap-y-6"
+			className="w-full h-[725px] bg-white rounded-2xl text-foreground pt-30 flex flex-col gap-y-6 custom-shadow"
 		>
 			<div
 				id="types"

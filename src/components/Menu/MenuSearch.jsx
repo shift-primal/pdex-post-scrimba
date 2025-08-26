@@ -1,12 +1,16 @@
-export default function MenuSearch() {
+export default function MenuSearch({ setSearchQuery }) {
+	function handleSearch(e) {
+		const searchQuery = e.target.value;
+		// console.log(searchQuery);
+		setSearchQuery(searchQuery);
+	}
+
 	return (
-		<form /* action={handleForm} */>
-			<input
-				type="text"
-				name="newPokemon"
-				placeholder="Search pokemon..."
-				className="min-w-50 h-full border-2 rounded-md focus:outline-none p-2 disabled:cursor-not-allowed disabled:opacity-50 bg-background hover:bg-gray-100 focus:bg-gray-200"
-			/>
-		</form>
+		<input
+			type="text"
+			onChange={handleSearch}
+			placeholder="Search pokemon..."
+			className="h-fit w-fit border-2 rounded-lg focus:outline-none p-2 bg-white text-lg"
+		/>
 	);
 }
