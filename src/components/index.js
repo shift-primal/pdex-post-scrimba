@@ -3,8 +3,8 @@ export { default as InfoCard } from "./Main/InfoCard.jsx";
 export { default as Sprite } from "./Main/Sprite.jsx";
 
 // Menu components
-export { default as Menu } from "./Menu/Menu.jsx";
-export { default as MenuCard } from "./Menu/MenuCard.jsx";
+export { default as Menu } from "./SearchMenu/Menu.jsx";
+export { default as MenuCard } from "./SearchMenu/MenuCard.jsx";
 
 // UI components
 export { default as Loading } from "./UI/Loading.jsx";
