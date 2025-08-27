@@ -1,13 +1,14 @@
-import { useState, useEffect, useRef } from "react";
-import MenuCard from "./MenuCard";
-import MenuSearch from "./MenuSearch";
+import { useState, useEffect, useRef, use } from "react";
+import { MenuCard, MenuSearch } from "@components";
+import { PokemonContext } from "@contexts";
 
-export default function Menu({ onLoadData, setPokemonToFetch, setMenuOpen, menuOpen }) {
+export default function Menu() {
+	const { onLoadData, menuOpen } = use(PokemonContext);
+
 	// States
 
 	const [displayedPokemon, setDisplayedPokemon] = useState([]);
 	const [displayBookmark, setDisplayBookmark] = useState(0);
-	const [isLoading, setIsLoading] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
 
 	// Refs
@@ -19,6 +20,7 @@ export default function Menu({ onLoadData, setPokemonToFetch, setMenuOpen, menuO
 
 	useEffect(() => {
 		if (searchQuery) {
+			console.log(displayedPokemon);
 			const filteredPokemon = onLoadData
 				.filter((el) => el != null)
 				.filter((el) => el.name && el.name.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -70,16 +72,14 @@ export default function Menu({ onLoadData, setPokemonToFetch, setMenuOpen, menuO
 				name={el.name}
 				id={el.url ? el.url.split("/").slice(-2, -1)[0] : index + 1}
 				key={el.name}
-				setPokemonToFetch={setPokemonToFetch}
-				setMenuOpen={setMenuOpen}
 			/>
 		);
 	});
 
 	return (
 		<div
-			id="menu"
-			className="w-full h-full overflow-y-hidden flex flex-col z-40"
+			id="menu-container"
+			className="w-full relative overflow-y-hidden flex flex-col"
 		>
 			<div
 				id="header"

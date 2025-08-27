@@ -1,6 +1,9 @@
-import { capitalize, formatId } from "../../utils/format";
+import { use } from "react";
+import { PokemonContext } from "@contexts";
+import { capitalize, formatId } from "@utils";
 
-export default function MenuCard({ name, id, setPokemonToFetch, setMenuOpen }) {
+export default function MenuCard({ name, id }) {
+	const { setPokemonToFetch, setMenuOpen } = use(PokemonContext);
 	return (
 		<button
 			onClick={() => {

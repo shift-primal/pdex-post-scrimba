@@ -9,6 +9,7 @@ export default function StatMeter({ pokemon, value }) {
 				height="1rem"
 				isLabelVisible={false}
 				bgColor={pokemon.colors[pokemon.types.first]}
+				transitionDuration="500ms"
 			/>
 		</div>
 	);

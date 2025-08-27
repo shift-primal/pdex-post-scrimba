@@ -1,4 +1,9 @@
-export default function Image({ pokemon }) {
+import { use } from "react";
+import { PokemonContext } from "@contexts";
+
+export default function Image() {
+	const { currentPokemon } = use(PokemonContext);
+
 	return (
 		<section
 			id="image"
@@ -6,7 +11,7 @@ export default function Image({ pokemon }) {
 		>
 			<img
 				className="object-contain object-center absolute"
-				src={pokemon.sprite}
+				src={currentPokemon.sprite}
 				alt="Image loading failed"
 			/>
 		</section>

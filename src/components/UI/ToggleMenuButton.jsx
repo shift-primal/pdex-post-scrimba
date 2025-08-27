@@ -1,13 +1,17 @@
+import { use } from "react";
+import { PokemonContext } from "@contexts";
 import { ChevronDown } from "lucide-react";
 
-export default function ToggleMenuButton({ menuOpen, setMenuOpen }) {
+export default function ToggleMenuButton() {
+	const { menuOpen, setMenuOpen } = use(PokemonContext);
+
 	const toggleMenu = () => {
 		setMenuOpen((prev) => !prev);
 	};
 
 	return (
 		<button
-			className="cursor-pointer absolute left-10 top-10 custom-hover z-50"
+			className="cursor-pointer absolute left-10 top-10 custom-hover z-40"
 			onClick={toggleMenu}
 		>
 			<ChevronDown

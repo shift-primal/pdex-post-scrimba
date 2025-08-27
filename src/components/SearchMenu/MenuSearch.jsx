@@ -1,9 +1,8 @@
 export default function MenuSearch({ setSearchQuery }) {
-	function handleSearch(e) {
+	const handleSearch = (e) => {
 		const searchQuery = e.target.value;
-		// console.log(searchQuery);
 		setSearchQuery(searchQuery);
-	}
+	};
 
 	return (
 		<input

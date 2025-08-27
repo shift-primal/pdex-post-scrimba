@@ -1,5 +1,4 @@
-
-export async function fetchPokemon(pokemonToFetch) {
+export default async function fetchPokemon(pokemonToFetch) {
 	const urlPokemon = `https://pokeapi.co/api/v2/pokemon/${pokemonToFetch}`;
 	const urlSpecies = `https://pokeapi.co/api/v2/pokemon-species/${pokemonToFetch}`;
 

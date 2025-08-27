@@ -1,22 +1,23 @@
+import { use } from "react";
+import { PokemonContext } from "../contexts/PokemonContext";
 import { getNextPokemonId, getPrevPokemonId } from "../utils/controls";
 
-export default function DevTools({ pokemon, showContent, setPokemonToFetch, onLoadData, setMenuOpen }) {
-	// functions
+export default function DevTools() {
+	const { currentPokemon, showContent, setPokemonToFetch, onLoadData, setMenuOpen, setShowContent } =
+		use(PokemonContext);
 
-	function handleForm(formData) {
-		setPokemonToFetch(formData.get("newPokemon"));
-	}
-
-	const handleNext = () => setPokemonToFetch(getNextPokemonId(pokemon));
-	const handlePrev = () => setPokemonToFetch(getPrevPokemonId(pokemon));
-	const logCurrentId = () => console.log(`Current ID: ${pokemon.id}`);
+	const handleForm = (formData) => setPokemonToFetch(formData.get("newPokemon"));
+	const handleNext = () => setPokemonToFetch(getNextPokemonId(currentPokemon));
+	const handlePrev = () => setPokemonToFetch(getPrevPokemonId(currentPokemon));
+	const logCurrentId = () => console.log(`Current ID: ${currentPokemon.id}`);
 	const logOnLoadData = () => console.log("OnLoad Data:", onLoadData);
 	const toggleMenu = () => setMenuOpen((prev) => !prev);
+	const toggleShowContent = () => setShowContent((prev) => !prev);
 
 	return (
 		<div
 			id="controls-container"
-			className="absolute top-1/2 -translate-y-1/2 right-10 gap-x-2 h-fit w-fit max-w-xl p-16 bg-background rounded-xl flex flex-wrap items-center justify-center gap-y-2"
+			className="absolute top-1/2 -translate-y-1/2 right-10 gap-x-2 h-fit w-fit max-w-xl p-16 bg-background rounded-xl flex flex-wrap items-center justify-center gap-y-2 z-100"
 		>
 			<form action={handleForm}>
 				<input
@@ -61,6 +62,12 @@ export default function DevTools({ pokemon, showContent, setPokemonToFetch, onLo
 				disabled={!showContent}
 			>
 				Toggle Menu
+			</button>
+			<button
+				className="border-2 px-3 py-1 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 rounded-md bg-gray-50 hover:bg-gray-100"
+				onClick={toggleShowContent}
+			>
+				Toggle Showcontent
 			</button>
 		</div>
 	);

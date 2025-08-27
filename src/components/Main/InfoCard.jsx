@@ -1,13 +1,16 @@
-import { Fragment } from "react";
-import { capitalize, formatFlavorText, formatHeight, formatWeight } from "../../utils/format";
+import { Fragment, use } from "react";
+import { PokemonContext } from "@contexts";
+import { capitalize, formatFlavorText, formatHeight, formatWeight } from "@utils";
 import { Ruler, Stars, Weight } from "lucide-react";
-import StatMeter from "../UI/StatMeter";
+import { StatMeter } from "@components";
 
-export default function Card({ pokemon }) {
+export default function Card() {
+	const { currentPokemon } = use(PokemonContext);
+
 	const biometrics = [
-		{ name: "Weight", value: formatWeight(pokemon.weight), icon: <Weight /> },
-		{ name: "Height", value: formatHeight(pokemon.height), icon: <Ruler /> },
-		{ name: "Ability", value: capitalize(pokemon.mainAbility), icon: <Stars /> },
+		{ name: "Weight", value: formatWeight(currentPokemon.weight), icon: <Weight /> },
+		{ name: "Height", value: formatHeight(currentPokemon.height), icon: <Ruler /> },
+		{ name: "Ability", value: capitalize(currentPokemon.mainAbility), icon: <Stars /> },
 	];
 	return (
 		<section
@@ -18,13 +21,13 @@ export default function Card({ pokemon }) {
 				id="types"
 				className="flex justify-evenly px-32"
 			>
-				{Object.entries(pokemon.types).map((type) => {
+				{Object.entries(currentPokemon.types).map((type) => {
 					if (type[1]) {
 						return (
 							<span
 								key={type}
 								className="w-[100px] h-[40px] flex justify-center items-center text-xl text-white font-bold rounded-4xl"
-								style={{ backgroundColor: `${pokemon.colors[type[1]]}` }}
+								style={{ backgroundColor: `${currentPokemon.colors[type[1]]}` }}
 							>
 								{capitalize(type[1])}
 							</span>
@@ -35,7 +38,7 @@ export default function Card({ pokemon }) {
 			<h3
 				className="font-bold text-2xl"
 				style={{
-					color: `${pokemon.colors[pokemon.types.firstType]}`,
+					color: `${currentPokemon.colors[currentPokemon.types.firstType]}`,
 				}}
 			>
 				About
@@ -63,7 +66,7 @@ export default function Card({ pokemon }) {
 				id="flavor-text"
 				className="px-16 leading-8 text-lg font-medium line-clamp-2"
 			>
-				{formatFlavorText(pokemon.flavorText)}
+				{formatFlavorText(currentPokemon.flavorText)}
 			</div>
 			<div
 				id="stats"
@@ -71,19 +74,19 @@ export default function Card({ pokemon }) {
 			>
 				<h1
 					className="text-2xl font-bold"
-					style={{ color: `${pokemon.colors[pokemon.types.firstType]}` }}
+					style={{ color: `${currentPokemon.colors[currentPokemon.types.firstType]}` }}
 				>
 					Base Stats
 				</h1>
 				<div className="grid grid-cols-9 grid-rows-6 place-items-center mt-2">
-					{Object.values(pokemon.stats).map((stat) => {
+					{Object.values(currentPokemon.stats).map((stat) => {
 						return (
 							<Fragment key={stat.name}>
 								<span className="w-full text-right font-bold col-start-1">{stat.name}</span>
 								<span className="border-l-2 opacity-20 h-full"></span>
 								<span className="w-full text-left font-semibold">{`0${stat.value}`}</span>
 								<StatMeter
-									pokemon={pokemon}
+									pokemon={currentPokemon}
 									value={stat.value}
 									className="w-full"
 								/>

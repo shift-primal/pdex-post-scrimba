@@ -1,4 +1,4 @@
-export const typeColors = {
+const typeColors = {
 	dark: "#75574C",
 	background: "#EFEFEF",
 	white: "#FFFFFF",
@@ -20,3 +20,5 @@ export const typeColors = {
 	steel: "#B7B9D0",
 	water: "#6493EB",
 };
+
+export default typeColors;
