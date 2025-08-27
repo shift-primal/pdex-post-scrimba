@@ -10,11 +10,12 @@ export default function MobileControls({ pokemon, showContent, setPokemonToFetch
 	return (
 		<div
 			id="mobile-controls"
-			className="absolute top-1/3 -translate-y-1/2 w-full flex justify-between px-8"
+			className="absolute top-1/3 -translate-y-1/2 w-full flex justify-between px-8 z-50"
 		>
 			<button
 				onClick={handlePrev}
 				disabled={!showContent}
+				className="custom-hover"
 			>
 				<ArrowLeft
 					color="white"
@@ -25,6 +26,7 @@ export default function MobileControls({ pokemon, showContent, setPokemonToFetch
 			<button
 				onClick={handleNext}
 				disabled={!showContent}
+				className="custom-hover"
 			>
 				<ArrowRight
 					color="white"

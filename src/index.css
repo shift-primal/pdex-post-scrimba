@@ -54,6 +54,9 @@
 }
 
 @layer utilities {
+	.custom-hover {
+		@apply hover:brightness-95 duration-100;
+	}
 }
 
 @theme {

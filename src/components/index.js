@@ -1,7 +1,6 @@
 // Main components
 export { default as InfoCard } from "./Main/InfoCard.jsx";
 export { default as Sprite } from "./Main/Sprite.jsx";
-export { default as HeadTitle } from "./Main/HeadTitle.jsx";
 
 // Menu components
 export { default as Menu } from "./Menu/Menu.jsx";

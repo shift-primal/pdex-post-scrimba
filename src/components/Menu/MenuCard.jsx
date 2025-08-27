@@ -7,7 +7,7 @@ export default function MenuCard({ name, id, setPokemonToFetch, setMenuOpen }) {
 				setPokemonToFetch(name);
 				setMenuOpen(false);
 			}}
-			className="bg-white rounded-lg h-22 flex flex-col items-center justify-center cursor-pointer border-2"
+			className="bg-white rounded-lg h-22 flex flex-col items-center justify-center cursor-pointer border-2 custom-hover"
 		>
 			<h3
 				id="id"

@@ -10,7 +10,7 @@ export default function MenuSearch({ setSearchQuery }) {
 			type="text"
 			onChange={handleSearch}
 			placeholder="Search pokemon..."
-			className="h-fit w-fit border-2 rounded-lg focus:outline-none p-2 bg-white text-lg"
+			className="border-2 p-3 rounded-lg focus:outline-none  bg-white text-lg custom-hover"
 		/>
 	);
 }

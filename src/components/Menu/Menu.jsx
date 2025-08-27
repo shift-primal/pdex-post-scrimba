@@ -8,7 +8,6 @@ export default function Menu({ onLoadData, setPokemonToFetch, setMenuOpen, menuO
 	const [displayedPokemon, setDisplayedPokemon] = useState([]);
 	const [displayBookmark, setDisplayBookmark] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
-
 	const [searchQuery, setSearchQuery] = useState("");
 
 	// Refs
@@ -80,26 +79,23 @@ export default function Menu({ onLoadData, setPokemonToFetch, setMenuOpen, menuO
 	return (
 		<div
 			id="menu"
-			className="w-full h-full overflow-y-hidden flex flex-col"
+			className="w-full h-full overflow-y-hidden flex flex-col z-40"
 		>
 			<div
 				id="header"
-				className="py-8"
+				className="h-20 px-8 my-4 flex items-center justify-center"
 			>
-				<h1 className="text-3xl">Pokémon</h1>
+				<h1 className="text-4xl text-white">Pokémon</h1>
 			</div>
 
 			<div
 				id="cards-grid"
-				className="grid grid-cols-2 place-content-start gap-4 overflow-y-scroll flex-1 px-4"
+				className="grid grid-cols-2 place-content-start gap-4 overflow-y-scroll flex-1 px-4 my-2"
 				ref={menuRef}
 			>
 				{cardElements}
 			</div>
-			<div
-				id="footer"
-				className="py-4"
-			>
+			<div id="footer">
 				<MenuSearch setSearchQuery={setSearchQuery} />
 			</div>
 		</div>

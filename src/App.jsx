@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
-import { Loading, HeadTitle, Sprite, InfoCard, DevTools, MobileControls, Menu } from "@components";
+import { Loading, Sprite, InfoCard, DevTools, MobileControls, Menu } from "@components";
 import { createPokemon } from "@utils/createdata";
+import { capitalize, formatId } from "@utils/format";
+import ToggleMenuButton from "./components/UI/ToggleMenuButton";
+import PokeballBackground from "./components/UI/PokeballBackground";
 
 function App() {
 	// useStates
@@ -44,11 +47,17 @@ function App() {
 				{(showContent || currentPokemon?.name) && (
 					<>
 						<div
-							className="app-container flex flex-col items-center relative outline-4 p-4 outline-white"
+							className="app-container flex flex-col items-center relative outline-4 p-4 outline-white overflow-x-hidden"
 							style={{
 								backgroundColor: currentPokemon.colors[currentPokemon.types.first],
 							}}
 						>
+							<ToggleMenuButton
+								menuOpen={menuOpen}
+								setMenuOpen={setMenuOpen}
+							/>
+
+							<PokeballBackground />
 							{!menuOpen && (
 								<>
 									<MobileControls
@@ -56,7 +65,18 @@ function App() {
 										showContent={showContent}
 										setPokemonToFetch={setPokemonToFetch}
 									/>
-									<HeadTitle pokemon={currentPokemon} />
+									<section
+										id="title"
+										className="h-20 flex flex-col items-center justify-center w-full mb-2 mt-8 text-white px-8 gap-y-6 z-10"
+									>
+										<span
+											className="text-7xl leading-8 font-semibold brightness-75"
+											style={{
+												color: currentPokemon.colors[currentPokemon.types.first],
+											}}
+										>{`#${formatId(currentPokemon.id)}`}</span>
+										<span className="text-4xl leading-8 font-semibold">{capitalize(currentPokemon.name)}</span>
+									</section>
 									<Sprite pokemon={currentPokemon} />
 									<InfoCard pokemon={currentPokemon} />
 								</>
