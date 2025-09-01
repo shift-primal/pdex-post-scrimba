@@ -3,7 +3,7 @@ import { MenuCard, MenuSearch } from "@components";
 import { PokemonContext } from "@contexts";
 
 export default function Menu() {
-	const { onLoadData, menuOpen } = use(PokemonContext);
+	const { pokemonData, menuOpen } = use(PokemonContext);
 
 	// States
 
@@ -21,21 +21,21 @@ export default function Menu() {
 	useEffect(() => {
 		if (searchQuery) {
 			console.log(displayedPokemon);
-			const filteredPokemon = onLoadData
+			const filteredPokemon = pokemonData
 				.filter((el) => el != null)
 				.filter((el) => el.name && el.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
 			setDisplayedPokemon(filteredPokemon);
 		} else {
-			setDisplayedPokemon(onLoadData.slice(0, 50));
+			setDisplayedPokemon(pokemonData.slice(0, 50));
 		}
 	}, [searchQuery]);
 
 	useEffect(() => {
 		if (displayBookmark === 0) {
-			setDisplayedPokemon(onLoadData.slice(0, 50));
+			setDisplayedPokemon(pokemonData.slice(0, 50));
 		} else {
-			const nextBatch = onLoadData.slice(displayBookmark * 50, (displayBookmark + 1) * 50);
+			const nextBatch = pokemonData.slice(displayBookmark * 50, (displayBookmark + 1) * 50);
 			setDisplayedPokemon((prev) => [...prev, ...nextBatch]);
 		}
 	}, [displayBookmark]);
@@ -67,10 +67,13 @@ export default function Menu() {
 	}, [menuOpen]);
 
 	const cardElements = displayedPokemon.map((el) => {
+		console.log(el);
 		return (
 			<MenuCard
+				sprite={el.sprite_url}
+				type={el.first_type}
 				name={el.name}
-				id={el.url ? el.url.split("/").slice(-2, -1)[0] : index + 1}
+				id={el.id}
 				key={el.name}
 			/>
 		);

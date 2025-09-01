@@ -1,5 +1,5 @@
 import createPokemon from "./createdata_backend.js";
-import { insertPokemon } from "../database.js";
+import { insertPokemon } from "../../../database.js";
 
 for (let i = 489; i <= 1025; i++) {
 	try {

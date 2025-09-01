@@ -1,6 +1,7 @@
 import { use } from "react";
 import { PokemonContext } from "@contexts";
 import { Menu, Pokemon, PokeballBackground, ToggleMenuButton, Loading } from "@components";
+import { typeColors } from "../utils";
 
 export default function MainApp() {
 	const { currentPokemon, menuOpen, showContent } = use(PokemonContext);
@@ -9,7 +10,7 @@ export default function MainApp() {
 			<div
 				className="app-container flex flex-col items-center relative outline-4 p-4 outline-white overflow-x-hidden"
 				style={{
-					backgroundColor: currentPokemon?.types?.first ? currentPokemon.colors[currentPokemon.types.first] : "#AAA67F",
+					backgroundColor: currentPokemon?.types?.first ? typeColors[currentPokemon.types.first] : "#AAA67F",
 				}}
 			>
 				{!showContent && <Loading />}

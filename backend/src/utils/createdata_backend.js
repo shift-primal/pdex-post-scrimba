@@ -1,4 +1,4 @@
-import fetchPokemon from "./api_backend.js";
+import fetchPokemon from "../scripts/migrate/api_migrate.js";
 import { typeColors } from "./colors_backend.js";
 import { findEnglishEntry, formatFlavorText } from "./format_backend.js";
 
